@@ -19,7 +19,7 @@ Należy zaprojektować system oparty na dwóch typach struktur:
 Struktura Posiłku: Przechowuje nazwę posiłku, kategorie kalotyczną, wartość kaloryczną oraz wskaźnik na kolejny element tego samego typu (tworząc listę jednokierunkową).
 Struktura Dnia: Przechowuje nazwę dnia oraz wskaźnik na pierwszy element listy posiłków (głowę listy).
 W funkcji głównej program ma pobrać od użytkownika liczbę dni do analizy, a następnie utworzyć dynamiczną tablicę struktur Dnia o zadanym rozmiarze.
-Część I: Dynamiczna Alokacja Danych
+## Część I: Dynamiczna Alokacja Danych
 
 Należy zaimplementować funkcję umożliwiającą dodanie nowego posiłku do wybranego dnia.
 Funkcja powinna przyjmować wskaźnik na strukturę Dnia oraz dane nowego posiłku.
@@ -28,13 +28,13 @@ Przykład logiczny działania:
 Stan obecny: Poniedziałek: [Jajka] -> [Tost] -> NULL
 Akcja: Dodaj "Kawa"
 Stan po operacji: Poniedziałek: [Jajka] -> [Tost] -> [Kawa] -> NULL
-Część II: Analiza z Wykorzystaniem Arytmetyki Wskaźników
+## Część II: Analiza z Wykorzystaniem Arytmetyki Wskaźników
 
 Należy zaimplementować funkcję obliczającą sumę kalorii dla wskazanego dnia.
 Restrykcja implementacyjna (Kluczowa):
 W ciele tej funkcji zabrania się używania operatora dostępu do składowych przez wskaźnik (->) oraz operatora indeksowania tablic ([]).
 Dostęp do pól struktur oraz nawigacja po liście musi odbywać się wyłącznie poprzez jawne wyłuskanie (*) i operacje na adresach. Celem jest weryfikacja zrozumienia, czym w istocie jest wskaźnik na strukturę w pamięci.
-Część III: Rekurencyjne Zwalanianie Zasobów
+## Część III: Rekurencyjne Zwalanianie Zasobów
 
 Należy zaimplementować funkcję czyszczącą pamięć przydzieloną na listę posiłków.
 Wymagania:
@@ -49,14 +49,14 @@ Usuwanie: Kawa
 Usuwanie: Tost
 Usuwanie: Jajka
 
-Część IV: Funkcje Wyższego Rzędu (Callback)
+## Część IV: Funkcje Wyższego Rzędu (Callback)
 
 Należy zaimplementować funkcję raportującą, która przyjmuje:
 Wskaźnik na listę posiłków.
 Wskaźnik na funkcję warunkową (zwracającą bool, a przyjmującą struct Dania struct Danie).
 Funkcja raportująca ma wypisać nazwy tylko tych posiłków, które spełniają warunek zdefiniowany w przekazanej funkcji (np. kalorie > 500) oraz 2 przykład użycia: funkcja która wypisze tylko nazwy posiłków z podanej kategorii
 
-Część V: Idiomatyczny c++
+## Część V: Idiomatyczny c++
 
 Należy przepisać cały program używając:
 std::vector<>
