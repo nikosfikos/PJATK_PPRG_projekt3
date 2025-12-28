@@ -9,15 +9,18 @@ Wprowadzenie
 
 W związku z ograniczeniami poprzedniej wersji systemu, polegającymi na sztywnym limitowaniu liczby wpisów w dzienniku, podjęto decyzję o refaktoryzacji warstwy danych. Nowa implementacja modułu analitycznego ma opierać się na strukturach dynamicznych, pozwalających na elastyczne zarządzanie pamięcią operacyjną w zależności od liczby wprowadzonych przez użytkownika danych.
 Celem zadania jest weryfikacja umiejętności manualnego zarządzania pamięcią (sterta), operowania na listach jednokierunkowych oraz rozumienia mechanizmów wskaźnikowych bez użycia abstrakcji wysokiego poziomu (jak kontenery STL).
-Wymagania Wstępne i Ograniczenia
+
+### Wymagania Wstępne i Ograniczenia
 
 Program nie może zawierać wycieków pamięci. Każda zaalokowana dynamicznie struktura musi zostać poprawnie zwolniona przed zakończeniem programu.
 Rozwiązanie musi ściśle przestrzegać narzuconych w dalszej części instrukcji ograniczeń składniowych (tzw. restrykcje implementacyjne).
 Specyfikacja Struktur Danych
 
-Należy zaprojektować system oparty na dwóch typach struktur:
-Struktura Posiłku: Przechowuje nazwę posiłku, kategorie kalotyczną, wartość kaloryczną oraz wskaźnik na kolejny element tego samego typu (tworząc listę jednokierunkową).
-Struktura Dnia: Przechowuje nazwę dnia oraz wskaźnik na pierwszy element listy posiłków (głowę listy).
+Należy zaprojektować system oparty na dwóch typach struktur:  
+
+**Struktura Posiłku:** Przechowuje nazwę posiłku, kategorie kalotyczną, wartość kaloryczną oraz wskaźnik na kolejny element tego samego typu (tworząc listę jednokierunkową).  
+
+**Struktura Dnia:** Przechowuje nazwę dnia oraz wskaźnik na pierwszy element listy posiłków (głowę listy).
 W funkcji głównej program ma pobrać od użytkownika liczbę dni do analizy, a następnie utworzyć dynamiczną tablicę struktur Dnia o zadanym rozmiarze.
 ## Część I: Dynamiczna Alokacja Danych
 
