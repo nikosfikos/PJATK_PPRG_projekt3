@@ -57,7 +57,9 @@ Usuwanie: Jajka
 Należy zaimplementować funkcję raportującą, która przyjmuje:
 Wskaźnik na listę posiłków.
 Wskaźnik na funkcję warunkową (zwracającą bool, a przyjmującą struct Dania struct Danie).
-Funkcja raportująca ma wypisać nazwy tylko tych posiłków, które spełniają warunek zdefiniowany w przekazanej funkcji (np. kalorie > 500) oraz 2 przykład użycia: funkcja która wypisze tylko nazwy posiłków z podanej kategorii
+Funkcja raportująca ma wypisać nazwy tylko tych posiłków, 
+które spełniają warunek zdefiniowany w przekazanej funkcji (np. kalorie > 500)
+oraz 2 przykład użycia: funkcja która wypisze tylko nazwy posiłków z podanej kategorii
 
 ## Część V: Idiomatyczny c++
 
@@ -66,11 +68,14 @@ std::vector<>
 std::memory (make_unique, move, etc)
 const gdzie będzie to możliwe
 referencji (&) zamiast wskaźników (*) gdzie to możliwe
-templateów (template <typename T>) przy funkcjach tam gdzie kod może byc taki sam dla więcej niż 1 typu (np. wprowadzanie danych)
+templateów (template <typename T>) przy funkcjach tam gdzie kod może byc taki sam
+dla więcej niż 1 typu (np. wprowadzanie danych)
 Zwracamy będą 2 wersje tego samego programu.
 Scenariusz Testowy (Oczekiwane działanie programu)
 
-Program po uruchomieniu powinien realizować poniższy scenariusz (dane wejściowe mogą być wpisane na sztywno w main lub podawane przez użytkownika):
+Program po uruchomieniu powinien realizować poniższy scenariusz 
+(dane wejściowe mogą być wpisane na sztywno w main lub podawane przez użytkownika):
+
 Utworzenie tablicy dla 2 dni.
 Dodanie do Dnia 1 (Poniedziałek) posiłków:
 "Owsianka" (300 kcal)
