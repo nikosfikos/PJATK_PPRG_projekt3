@@ -25,6 +25,7 @@ struct Day {
     Meal *head;
 };
 
+// I
 void addMeal(Meal* &head ,Meal* meal) {
     Meal* current = head;
     if (head == nullptr) {
@@ -41,6 +42,7 @@ void addMeal(Meal* &head ,Meal* meal) {
 
 }
 
+// II
 void dailyCalorieSum(Day* array, int numOfDays ) {
 
     for (int i = 0; i < numOfDays; i++) {
@@ -67,16 +69,17 @@ void displayMeals(Meal* head) {
         << current->calorieValue << endl;
     }
 }
-
+ // III
 void deleteMeal(Meal* head) {
     if (head == nullptr) {
         return;
     }
     deleteMeal(head->next);
-    cout<< "Usunięto z pamięci "<< head->mealName << endl;
+    cout<< "Removed from memory: "<< head->mealName << endl;
     delete head;
 }
 
+// IV
 bool categoryConditional(Meal meal) {
     if (meal.calorieValue > 500) {
         return true;
@@ -85,8 +88,16 @@ bool categoryConditional(Meal meal) {
 
 }
 
-void raport(Day* array, int numOfDays,bool* categoryConditional() ) {
-    cout << "--- RAPORT KALORYCZNY ---" << endl;
+void raport(Day* array, int numOfDays, bool(*mealCalorieCheck)(Meal) ) {
+
+    for (int i = 0; i < numOfDays; i++) {
+        cout<<"found high calorie value meals (>500kcal):"<<endl;
+        for (Meal* current = array[i].head; current != nullptr; current = current->next) {
+            if (mealCalorieCheck(*current)) {
+                cout << current->mealName << endl;
+            }
+        }
+    }
 
 }
 
@@ -112,17 +123,17 @@ int main() {
         counter++;
     }
 
-    for (int i = 0; i < numOfDays; i++) {
-        cout << array[i].dayName << endl;
-    }
 
     Meal* tmpMeal2 = new Meal{"tost", "dobra", 100, nullptr};
-    Meal *tmpMeal1 = new Meal{"jajka", "zla", 500, nullptr};
+    Meal *tmpMeal1 = new Meal{"jajka", "zla", 501, nullptr};
     array[0].head = tmpMeal1;
 
     addMeal(array[0].head, tmpMeal2);
-    displayMeals(array[0].head);
+    // displayMeals(array[0].head);
+
     dailyCalorieSum(array, numOfDays);
+
+    raport(array, numOfDays, categoryConditional);
 
     deleteMeal(array[0].head);
     delete[] array;
