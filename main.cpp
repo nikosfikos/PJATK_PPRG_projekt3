@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-constexpr string nameOfDays[7] = {
+string nameOfDays[7] = {
     "Monday",
     "Tuesday",
     "Wednesday",
