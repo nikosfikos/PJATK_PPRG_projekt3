@@ -1,4 +1,3 @@
-#include <chrono>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -14,7 +13,6 @@ constexpr string nameOfDays[7] = {
 };
 
 
-
 struct Meal {
     string mealName;
     string calorieCategory;
@@ -27,16 +25,38 @@ struct Day {
     Meal *head;
 };
 
-void addMeal(Meal* head ,Meal* meal) {
-    Meal* current = head->next;
-    head->next = current;
-    Meal* tmp = current;
-    while (current->next != nullptr) {
-        current = current->next;
-        tmp = current->next;
+void addMeal(Meal* &head ,Meal* meal) {
+    Meal* current = head;
+    if (head == nullptr) {
+        // add meal to empty list
+        head = meal;
+        return;
     }
-    current = tmp;
+
+    while (current->next != nullptr) {
+        Meal* next= current->next;
+        current = next;
+    }
     current->next = meal;
+
+}
+
+void dailyCalorieSum(Day* array, int numOfDays ) {
+
+    for (int i = 0; i < numOfDays; i++) {
+        int sum = 0;
+        Meal* current = (*(array+i)).head;
+
+        cout << (*(array+i)).dayName << endl;
+
+        while (current != nullptr ) {
+            sum += (*current).calorieValue;
+            Meal* next= (*current).next;
+            current = next;
+        }
+        cout << "Calorie sum: " << sum << endl;
+
+    }
 
 }
 
@@ -49,11 +69,25 @@ void displayMeals(Meal* head) {
 }
 
 void deleteMeal(Meal* head) {
-    if (head->next == nullptr) {
+    if (head == nullptr) {
         return;
     }
     deleteMeal(head->next);
+    cout<< "Usunięto z pamięci "<< head->mealName << endl;
     delete head;
+}
+
+bool categoryConditional(Meal meal) {
+    if (meal.calorieValue > 500) {
+        return true;
+    }
+    return false;
+
+}
+
+void raport(Day* array, int numOfDays,bool* categoryConditional() ) {
+    cout << "--- RAPORT KALORYCZNY ---" << endl;
+
 }
 
 int main() {
@@ -65,8 +99,9 @@ int main() {
 
     Day* array = new Day[numOfDays];
 
-
+    // naming days loop
     while (counter <= numOfDays-1) {
+        array[counter].head = nullptr;
         if (counter > 6){
             array[counter].dayName = nameOfDays[counter%7];
 
@@ -81,13 +116,13 @@ int main() {
         cout << array[i].dayName << endl;
     }
 
-    Meal* tmpMeal2 = new Meal{"bulka", "dobra", 100, nullptr};
-    Meal *tmpMeal1 = new Meal{"piwko", "zla", 500, tmpMeal2};
-    addMeal(array[0].head, tmpMeal1);
+    Meal* tmpMeal2 = new Meal{"tost", "dobra", 100, nullptr};
+    Meal *tmpMeal1 = new Meal{"jajka", "zla", 500, nullptr};
+    array[0].head = tmpMeal1;
 
-    for (int i = 0; i < numOfDays; i++) {
-        cout << array[i].dayName << endl;
-    }
+    addMeal(array[0].head, tmpMeal2);
+    displayMeals(array[0].head);
+    dailyCalorieSum(array, numOfDays);
 
     deleteMeal(array[0].head);
     delete[] array;
