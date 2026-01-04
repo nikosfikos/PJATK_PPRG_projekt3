@@ -26,12 +26,12 @@ struct Day {
 };
 
 // I
-void addMeal(Meal* &head ,Meal* meal) {
+Meal* addMeal(Meal* head ,Meal* meal) {
     Meal* current = head;
     if (head == nullptr) {
         // add meal to empty list
         head = meal;
-        return;
+        return head;
     }
 
     while (current->next != nullptr) {
@@ -39,26 +39,21 @@ void addMeal(Meal* &head ,Meal* meal) {
         current = next;
     }
     current->next = meal;
-
+    return head;
 }
 
 // II
-void dailyCalorieSum(Day* array, int numOfDays ) {
+int dailyCalorieSum(Day* day) {
 
-    for (int i = 0; i < numOfDays; i++) {
         int sum = 0;
-        Meal* current = (*(array+i)).head;
-
-        cout << (*(array+i)).dayName << endl;
+        Meal* current = (*day).head;
 
         while (current != nullptr ) {
             sum += (*current).calorieValue;
             Meal* next= (*current).next;
             current = next;
         }
-        cout << "Calorie sum: " << sum << endl;
-
-    }
+        return sum;
 
 }
 
@@ -69,7 +64,7 @@ void displayMeals(Meal* head) {
         << current->calorieValue << endl;
     }
 }
- // III
+// III
 void deleteMeal(Meal* head) {
     if (head == nullptr) {
         return;
@@ -88,54 +83,71 @@ bool categoryConditional(Meal meal) {
 
 }
 
-void raport(Day* array, int numOfDays, bool(*mealCalorieCheck)(Meal) ) {
+bool isHealthy(Meal meal) {
+    if (meal.calorieCategory == "good") {
+        return true;
+    }
+    return false;
+}
 
-    for (int i = 0; i < numOfDays; i++) {
-        cout<<"found high calorie value meals (>500kcal):"<<endl;
-        for (Meal* current = array[i].head; current != nullptr; current = current->next) {
+void raport(Meal* head, bool(*mealCalorieCheck)(Meal) ) {
+        for (Meal* current = head; current != nullptr; current = current->next) {
             if (mealCalorieCheck(*current)) {
                 cout << current->mealName << endl;
             }
         }
-    }
-
 }
 
 int main() {
     int numOfDays;
     int counter = 0;
+    Meal* tmpMeal4 = new Meal{"Pizza", "bad", 1200, nullptr};
+    Meal* tmpMeal3 = new Meal{"Jablko", "good", 50, nullptr};
+    Meal* tmpMeal2 = new Meal{"Burger", "bad", 850, nullptr};
+    Meal* tmpMeal1 = new Meal{"Owsianka", "good", 300, nullptr};
 
     cout<<"Podaj liczbe dni do analizy"<<endl;
     cin>>numOfDays;
-
     Day* array = new Day[numOfDays];
 
     // naming days loop
     while (counter <= numOfDays-1) {
-        array[counter].head = nullptr;
+        (*(array+counter)).head = nullptr;
         if (counter > 6){
-            array[counter].dayName = nameOfDays[counter%7];
+            (*(array+counter)).dayName = *(nameOfDays+(counter%7));
 
         } else {
-            array[counter].dayName = nameOfDays[counter];
+            (*(array+counter)).dayName = *(nameOfDays+counter);
 
         }
         counter++;
     }
 
 
-    Meal* tmpMeal2 = new Meal{"tost", "dobra", 100, nullptr};
-    Meal *tmpMeal1 = new Meal{"jajka", "zla", 501, nullptr};
-    array[0].head = tmpMeal1;
 
-    addMeal(array[0].head, tmpMeal2);
-    // displayMeals(array[0].head);
+    (*array).head = addMeal( (*array).head, tmpMeal1);
+    (*array).head = addMeal( (*array).head, tmpMeal2);
+    (*array).head = addMeal( (*array).head, tmpMeal3);
+    (*(array+1)).head = addMeal( (*(array+1)).head, tmpMeal4);
 
-    dailyCalorieSum(array, numOfDays);
+    // display raport
+    cout<< "--- RAPORT KALORYCZNY ---" <<endl;
+    for (int i = 0; i < numOfDays; i++) {
+        cout<< "Day: " << (*(array+i)).dayName << endl;
+        cout<< "Suma kalorii: " << dailyCalorieSum(array+i) <<endl;
+        cout<< "Znalezione posiłki wysokokaloryczne (>500kcal): "<<endl;
+        raport((*(array+i)).head, categoryConditional);
+        // different callback
+        cout<< "Food in good category: " <<endl;
+        raport((*(array+i)).head, isHealthy);
+        cout << endl;
+    }
 
-    raport(array, numOfDays, categoryConditional);
-
-    deleteMeal(array[0].head);
+    cout<< "--- CZYSZCZENIE PAMIĘCI ---" <<endl;
+    for (int i=0; i <numOfDays; i++) {
+        cout<<"Czyszczenie dnia: "<< (*(array+i)).dayName << endl;
+        deleteMeal((*(array+i)).head);
+    }
     delete[] array;
     return 0;
 }
